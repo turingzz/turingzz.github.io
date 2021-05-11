@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="turingzz">
+
+
+
+
+
+<title>acme申请ssl证书 | Turingzz</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Turingzz</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">关于我</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Turingzz</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">关于我</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">acme申请ssl证书</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">turingzz</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">January 15, 2021&nbsp;&nbsp;15:44:53</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/study/">study</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="acme申请ssl证书"><a href="#acme申请ssl证书" class="headerlink" title="acme申请ssl证书"></a>acme申请ssl证书</h1><p>免费的ssl证书申请有很多渠道，但很多都需要到期重新申请。acme可以到期自动重新申请新的证书，放哪里就不用管了。</p>
+<p>acme.sh的官方github中提供的wiki：<a target="_blank" rel="noopener" href="https://github.com/acmesh-official/acme.sh/wiki/%E8%AF%B4%E6%98%8E">https://github.com/acmesh-official/acme.sh/wiki/%E8%AF%B4%E6%98%8E</a></p>
+<h2 id="安装acme-sh"><a href="#安装acme-sh" class="headerlink" title="安装acme.sh"></a>安装acme.sh</h2><p>官方提供了三种常见的安装方式。分别为：使用curl直接从<code>get.acme.sh</code>在线安装，或者在github下载，或者git克隆了项目手动安装。</p>
+<p>很不信，因为网络原因，前两种方式都直接被拒绝访问了。我只能使用第三种，使用git clone这个项目，并安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/Neilpang/acme.sh.git</span><br><span class="line"><span class="built_in">cd</span> acme.sh</span><br><span class="line">./acme.sh --install</span><br></pre></td></tr></table></figure>
+
+<p>如果想尝试前两种，可以参考<a target="_blank" rel="noopener" href="https://github.com/acmesh-official/acme.sh/wiki/How-to-install">官方github</a>。</p>
+<h2 id="生成证书"><a href="#生成证书" class="headerlink" title="生成证书"></a>生成证书</h2><p>生成证书有两种验证方式，http和dns。</p>
+<p>http方式是需要在你的网站根目录下放置一个文件, 来验证你的域名所有权,完成验证. 然后就可以生成证书了。</p>
+<p>但是我的根域名另有他用，故使用第二种dns验证。</p>
+<p>dns验证也分两种，手动dns和自动dns，选择其中一种就可。</p>
+<h3 id="手动dns验证"><a href="#手动dns验证" class="headerlink" title="手动dns验证"></a>手动dns验证</h3><p>手动dns就是在购买域名的地方手动添加acme生成的txt。使用下面的命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">acme.sh  --issue  --dns   -d xxxxxxx.com</span><br></pre></td></tr></table></figure>
+
+<p>然后, <strong>acme.sh</strong> 会生成相应的解析记录显示出来, 你只需要在你的域名管理面板中添加这条 txt 记录即可.等待解析完成之后, 重新生成证书:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">acme.sh  --renew   -d xxxxxxx.com</span><br></pre></td></tr></table></figure>
+
+<p>注意第二次这里用的是 <code>--renew</code></p>
+<h3 id="自动dns验证"><a href="#自动dns验证" class="headerlink" title="自动dns验证"></a>自动dns验证</h3><p>dns 方式的真正强大之处在于可以使用域名解析商提供的 api 自动添加 txt 记录完成验证。</p>
+<p>自动dns需要使用购买域名的网站提供的api访问。比如阿里云：</p>
+<p><strong>使用阿里云域API自动颁发证书</strong></p>
+<p>首先，您需要登录到Aliyun帐户以获取API密钥。 <a target="_blank" rel="noopener" href="https://ak-console.aliyun.com/#/accesskey">https://ak-console.aliyun.com/#/accesskey</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export Ali_Key=&quot;sdfsdfsdfljlbjkljlkjsdfoiwje&quot;</span><br><span class="line">export Ali_Secret=&quot;jlsdflanljkljlfdsaklkjflsa&quot;</span><br></pre></td></tr></table></figure>
+
+<p>好的，让我们现在颁发证书：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">acme.sh --issue --dns dns_ali -d example.com -d www.example.com</span><br></pre></td></tr></table></figure>
+
+<p>的<code>Ali_Key</code>和<code>Ali_Secret</code>将被保存<code>~/.acme.sh/account.conf</code>，需要时会被重用。</p>
+<p><strong>不同的运行商是不同的</strong>，请参考wiki，根据自己的运营商来：<a target="_blank" rel="noopener" href="https://github.com/acmesh-official/acme.sh/wiki/dnsapi">https://github.com/acmesh-official/acme.sh/wiki/dnsapi</a></p>
+<p>如果需要申请泛域名证书，命令为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">acme.sh   --issue   --dns dns_ali   -d aa.com  -d &quot;*.aa.com&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用证书"><a href="#使用证书" class="headerlink" title="使用证书"></a>使用证书</h2><p>将使用的路径指向生成的证书</p>
+<p>以nginx举例。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssl_certificate      /root/.acme.sh/xxxxx.com/fullchain.cer;</span><br><span class="line">ssl_certificate_key  /root/.acme.sh/xxxxx.com/xxxxxx.com.key;</span><br></pre></td></tr></table></figure>
+
+<p>访问网站的时候就可以见到证书</p>
+<p><img src="https://cdn.jsdelivr.net/gh/turingzz/static/img/20210115154242.png"></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/ssl/"># ssl</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2021/01/17/UseTerminalOpenExplorer/">在终端中使用命令打开当前文件夹</a>
+            
+            
+            <a class="next" rel="next" href="/2020/05/25/springboot-mail/">SpringBoot中发送邮件</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© turingzz | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>

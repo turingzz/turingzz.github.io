@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="turingzz">
+
+
+
+
+
+<title>git常用命令 | Turingzz</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Turingzz</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">关于我</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Turingzz</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">关于我</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">git常用命令</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">turingzz</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">January 17, 2021&nbsp;&nbsp;21:08:09</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/study/">study</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p><strong>版本管理</strong></p>
+<ol>
+<li>新建一个空目录，使用<code>git init</code>将该目录变为可以git可以管理的目录</li>
+<li>创建了一个新文件<code>readme.md</code>，使用<code>git add readme.md</code>添加到仓库</li>
+<li>可以在多次add之后，一次性提交，使用<code>git commit -m &quot;add a readme file&quot;</code></li>
+<li>使用<code>git status</code>可以查看当前的目录的状态，有修改，有可以提交的等等</li>
+<li>当文件add后，又经过修改切暂未add，使用<code>git diff filenae</code>可以看到这个文件修改的地方</li>
+<li><code>git log</code>查看提交记录。<code>git log --graph</code>简易的图示提交记录</li>
+<li><code>git reset --hard HEAD^</code>回退到上一个版本，那么想取消回退呢。要先找到刚刚的版本号，然后<code>git reset --hard fc58</code>。**使用<code>git reflog</code>**可以查看每一次记录，包括“未来”的记录</li>
+<li><code>git reset HEAD &lt;file&gt;</code>可以从暂存区撤销回工作区。<code>git checkout -- &lt;file&gt;</code>可以找回删除的某个文件（用版本库里的版本替换工作区的版本），无论工作区是修改还是删除，都可以“一键还原”。</li>
+</ol>
+<p><strong>远程仓库</strong></p>
+<ol start="9">
+<li>添加远程仓库：<code>git remote add origin git@github.com:username/learngit.git</code>(origin可以替换为不同的名字如gitee，github等等)</li>
+<li>将本地的master推送到远程库origin：<code>git push -u origin master</code>（第一次推送加-u，之后不需要)</li>
+<li><code>git fetch origin</code>获取它有，但是本机没有的代码。fetch之后要merge到本地分支，<code>git merge origin/master</code></li>
+<li>查看当前的远程仓库<code>git remote -v</code></li>
+<li>删除仓库<code>git remote rm origin</code></li>
+</ol>
+<p><strong>git pull</strong> 其实就是 <strong>git fetch</strong> 和 <strong>git merge FETCH_HEAD</strong> 的简写。 命令格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>分支管理</strong></p>
+<ol start="14">
+<li>创建新的分支并切换到该分支<code>git checkout -b dev</code>。相当于两条命令<code>git branch dev</code>和<code>git checkout dev</code>。切换也可以用<code>git switch -c dev</code>和<code>git switch dev</code></li>
+<li><code>git branch</code>查看当前的分支</li>
+<li>在master上合并dev。先切换会master，然后<code>git merge dev</code></li>
+<li>删除dev分支<code>git branch -d dev</code></li>
+</ol>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E5%85%B6%E4%BB%96/"># 其他</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2021/01/19/why-java-only-have-pass-by-value/">为什么Java中只有值传递</a>
+            
+            
+            <a class="next" rel="next" href="/2021/01/17/UseTerminalOpenExplorer/">在终端中使用命令打开当前文件夹</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© turingzz | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>

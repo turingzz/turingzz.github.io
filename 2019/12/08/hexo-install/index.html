@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="turingzz">
+
+
+
+
+
+<title>安装hexo和基本的使用 | Turingzz</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Turingzz</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">关于我</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Turingzz</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">关于我</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">安装hexo和基本的使用</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">turingzz</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">December 8, 2019&nbsp;&nbsp;13:53:00</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/study/">study</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>搭建个人的博客，在自己的服务器上。用hexo的好处是，所有的博客可以写在markdown文件中，备份在本地，迁移起来很方便。</p>
+<span id="more"></span>
+
+<h2 id="个人服务器配置"><a href="#个人服务器配置" class="headerlink" title="个人服务器配置"></a>个人服务器配置</h2><p><strong>安装node，git</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sL https://rpm.nodesource.com/setup_10.x | bash - yum install -y nodejs</span><br></pre></td></tr></table></figure>
+
+<p>通过这条命令安装node和npm</p>
+<p>git我的服务器已经有了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
+
+<p>可以查看有没有安装git。我的输出<code>git version 1.8.3.1</code></p>
+<h2 id="使用npm安装Hexo"><a href="#使用npm安装Hexo" class="headerlink" title="使用npm安装Hexo"></a>使用npm安装Hexo</h2><p>最好切换为taobao的源，下载的会快一些。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+
+<p>验证是否切换成功：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config get registry</span><br></pre></td></tr></table></figure>
+
+<p>输出淘宝源的地址<code>https://registry.npm.taobao.org/</code>，即切换成功。</p>
+<p><strong>安装Hexo</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<p>验证是否安装成功：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo version</span><br></pre></td></tr></table></figure>
+
+<p>输出版本信息，则安装成功。</p>
+<h2 id="搭建博客"><a href="#搭建博客" class="headerlink" title="搭建博客"></a>搭建博客</h2><p>创建博客的目录<code>hexo init 目录名</code>。我就在当前目录下创建blog的文件夹作为博客的根目录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init blog</span><br></pre></td></tr></table></figure>
+
+<p>进入刚刚的目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> blog</span><br></pre></td></tr></table></figure>
+
+<p>安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<h2 id="第一次启动博客"><a href="#第一次启动博客" class="headerlink" title="第一次启动博客"></a>第一次启动博客</h2><p>生成静态页面</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+
+<p>启动hexo博客</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<p>这时，访问<a href="http://ip:4000就可以看到hexo的默认主题了。">http://ip:4000就可以看到hexo的默认主题了。</a></p>
+<blockquote>
+<p>如果要想要后台运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup hexo s &gt; blog.log 2&gt;&amp;1 &amp; </span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="介绍几种发布博客的方式"><a href="#介绍几种发布博客的方式" class="headerlink" title="介绍几种发布博客的方式"></a>介绍几种发布博客的方式</h2><ol>
+<li>直接将markdown文件复制到blog目录下的source/_posts文件夹中。即可看到博客</li>
+<li>新建git或svn仓库，当本地提交markdown文件到仓库时，钩子将新增加的文件复制到source/_posts文件夹下。</li>
+<li>通过hexo工具也可以新建博客<code>hexo new 博客</code>。具体参照官网</li>
+<li>通过hexo-admin工具，通过浏览器就可以管理</li>
+</ol>
+<h2 id="安装hexo-admin通过浏览器管理发布博客"><a href="#安装hexo-admin通过浏览器管理发布博客" class="headerlink" title="安装hexo-admin通过浏览器管理发布博客"></a>安装hexo-admin通过浏览器管理发布博客</h2><p>安装hexo-admin</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-admin --save</span><br></pre></td></tr></table></figure>
+
+<p>重启hexo</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server -d</span><br></pre></td></tr></table></figure>
+
+<p>这时，通过<a target="_blank" rel="noopener" href="http://ip:4000/admin%E5%8D%B3%E5%8F%AF%E7%AE%A1%E7%90%86%E5%8D%9A%E5%AE%A2%E3%80%82%E4%B9%9F%E5%8F%AF%E4%BB%A5%E5%9C%A8%E8%BF%99%E4%B8%AA%E9%A1%B5%E9%9D%A2%E7%9A%84setting%E4%B8%AD%E7%94%9F%E6%88%90%E5%90%8E%E5%8F%B0%E7%9A%84%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81%E3%80%82%E5%A4%8D%E5%88%B6%E5%88%B0_config.yml%E5%B0%B1%E4%BC%9A%E7%94%9F%E6%95%88%EF%BC%8C%E9%87%8D%E5%90%AF%E5%8D%9A%E5%AE%A2%E5%90%8E%E7%99%BB%E5%BD%95%E5%90%8E%E5%8F%B0%E5%89%8D%E5%B0%B1%E9%9C%80%E8%A6%81%E8%B4%A6%E5%8F%B7%E5%AF%86%E7%A0%81%E3%80%82">http://ip:4000/admin即可管理博客。也可以在这个页面的setting中生成后台的用户名和密码。复制到_config.yml就会生效，重启博客后登录后台前就需要账号密码。</a></p>
+<h2 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h2><p>如参考的那位兄弟所说<code>IP访问这么low b的访问方式，当然要优化一下</code>。思路：通过NGINX做一个反向代理，将<a href="http://blog.xxx.xxx这种二级域名代理到本机的localhost:4000。反向代理可以让自己的域名做更多的事情。">http://blog.xxx.xxx这种二级域名代理到本机的localhost:4000。反向代理可以让自己的域名做更多的事情。</a></p>
+<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><h3 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h3><p>进入主题的目录blog/themes，克隆主题项目的地址</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ./themes</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/maochunguang/black-blue</span><br></pre></td></tr></table></figure>
+
+<p>更换主题：进入根目录，更改配置文件<code>_config.yml</code></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">black-blue</span></span><br></pre></td></tr></table></figure>
+
+<p>重新启动。</p>
+<p>更多的关于主题的配置，请参考具体每个主题的官方说明</p>
+<hr>
+<p>找了很久，推荐几个好看的。</p>
+<h3 id="black-blue"><a href="#black-blue" class="headerlink" title="black-blue"></a>black-blue</h3><p> <a target="_blank" rel="noopener" href="https://geeksblog.cc/">预览地址</a> </p>
+<p> <a target="_blank" rel="noopener" href="https://github.com/maochunguang/black-blue">GitHub 项目地址</a> </p>
+<p> <a target="_blank" rel="noopener" href="https://github.com/maochunguang/black-blue">安装教程</a> </p>
+<h3 id="Diaspora（动漫大图）"><a href="#Diaspora（动漫大图）" class="headerlink" title="Diaspora（动漫大图）"></a>Diaspora（动漫大图）</h3><p> <a target="_blank" rel="noopener" href="http://fech.in/">预览地址</a> </p>
+<p> <a target="_blank" rel="noopener" href="https://github.com/Fechin/hexo-theme-diaspora">GitHub 项目地址</a> </p>
+<p> <a target="_blank" rel="noopener" href="https://github.com/Fechin/hexo-theme-diaspora">安装教程</a> </p>
+<h3 id="Melody"><a href="#Melody" class="headerlink" title="Melody"></a>Melody</h3><p> <a target="_blank" rel="noopener" href="https://molunerfinn.com/">预览地址</a> </p>
+<p> <a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody">GitHub 项目地址</a> </p>
+<p> <a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody">安装教程</a> </p>
+<h3 id="岛"><a href="#岛" class="headerlink" title="岛"></a>岛</h3><p> <a target="_blank" rel="noopener" href="https://github.com/Shen-Yu/hexo-theme-ayer">项目地址</a> </p>
+<p> <a target="_blank" rel="noopener" href="https://shen-yu.gitee.io/">效果预览</a> </p>
+<p> <a target="_blank" rel="noopener" href="https://shen-yu.gitee.io/2019/ayer/">中文说明</a> </p>
+<h3 id="NexT"><a href="#NexT" class="headerlink" title="NexT"></a>NexT</h3><h3 id="butterfly"><a href="#butterfly" class="headerlink" title="butterfly"></a>butterfly</h3><h3 id="Nexmoe"><a href="#Nexmoe" class="headerlink" title="Nexmoe"></a>Nexmoe</h3><blockquote>
+<p>安装部分参考： <a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000017868507">https://segmentfault.com/a/1190000017868507</a> 。</p>
+<p>另外。可以看我的效果：<a target="_blank" rel="noopener" href="http://blog.hanjun.red/">http://blog.hanjun.red</a></p>
+</blockquote>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E5%89%8D%E7%AB%AF/"># 前端</a>
+                    
+                        <a href="/tags/hexo/"># hexo</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2019/12/09/spring-aop/">Spring中xml和注解方式使用AOP</a>
+            
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© turingzz | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>

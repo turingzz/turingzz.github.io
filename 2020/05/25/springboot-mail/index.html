@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="turingzz">
+
+
+
+
+
+<title>SpringBoot中发送邮件 | Turingzz</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Turingzz</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">关于我</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Turingzz</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">关于我</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">SpringBoot中发送邮件</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">turingzz</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">May 25, 2020&nbsp;&nbsp;21:32:25</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/study/">study</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>​    很多次我在本地写好了发送邮件的服务之后，部署到阿里云的服务器，就歇菜了。Google了很久，找到的别人的记录都是差不多了，很少有人提到了使用端口的问题。做个记录。</p>
+<span id="more"></span>
+
+<p>​    我使用的是网易云的邮箱，填好smtp服务器，填好基本的信息，本地一跑。诶，可以发送了。</p>
+<p>依赖pom.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependency</span>&gt;</span> </span><br><span class="line">	    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-mail<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在application.properties中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spring.mail.host=smtp.163.com //邮箱服务器地址</span><br><span class="line">spring.mail.username=xxx@oo.com //用户名</span><br><span class="line">spring.mail.password=xxyyooo    //密码</span><br><span class="line">spring.mail.default-encoding=UTF-8</span><br><span class="line">mail.fromMail.addr=xxx@oo.com  //以谁来发送邮件</span><br></pre></td></tr></table></figure>
+
+<p>这个方法具体可以参考博客:<a target="_blank" rel="noopener" href="http://www.ityouknow.com/springboot/2017/05/06/spring-boot-mail.html">SpringBoot发送邮件</a></p>
+<p>这个方法在本地是没有问题的，但是部署在阿里云上之后，会看到报错，smtp端口25连接超时。。。</p>
+<p>于是，找了一下原因，发现是阿里云的服务器不能使用25端口。</p>
+<p>现在可以用smtp的465端口来发送邮件，网上的配置也是五花八门，找到一个配置比较全的文章：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c28c6def82b8">SpringBoot集成邮箱</a></p>
+<p>和普通的文章只有配置文件的区别。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">mail:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">smtp.126.com</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">xx@126.com</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">xxxxxxxx</span></span><br><span class="line">    <span class="attr">protocol:</span> <span class="string">smtp</span></span><br><span class="line">    <span class="attr">properties.mail.smtp.auth:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">properties.mail.smtp.port:</span> <span class="number">465</span> <span class="comment">#465或者994</span></span><br><span class="line">    <span class="attr">properties.mail.display.sendmail:</span> <span class="string">Javen</span></span><br><span class="line">    <span class="attr">properties.mail.display.sendname:</span> <span class="string">Spring</span> <span class="string">Boot</span> <span class="string">Guide</span> <span class="string">Email</span></span><br><span class="line">    <span class="attr">properties.mail.smtp.starttls.enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">properties.mail.smtp.starttls.required:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">properties.mail.smtp.ssl.enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">default-encoding:</span> <span class="string">utf-8</span></span><br><span class="line">    <span class="attr">from:</span> <span class="string">xx@126.com</span></span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E5%85%B6%E4%BB%96/"># 其他</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2021/01/15/acme%E7%94%B3%E8%AF%B7ssl%E8%AF%81%E4%B9%A6/">acme申请ssl证书</a>
+            
+            
+            <a class="next" rel="next" href="/2020/05/16/tools/">各个系统中常用的工具</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© turingzz | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>

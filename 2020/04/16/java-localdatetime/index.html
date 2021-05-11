@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="turingzz">
+
+
+
+
+
+<title>LocalDate,LocalTime,LocalDateTime的基本使用 | Turingzz</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Turingzz</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">关于我</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Turingzz</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">关于我</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">LocalDate,LocalTime,LocalDateTime的基本使用</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">turingzz</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">April 16, 2020&nbsp;&nbsp;9:52:25</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/study/">study</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>​    Java8提供的新的时间日期的类型LocalDate,LocalTime,LocalDateTime。之前用的Date和Calendar都为线程不安全。用来格式化Date类型的SimpleDateFormat也是线程不安全的。LocalDate和格式化LocalDate的DateTimeFormatter是线程安全的。</p>
+<span id="more"></span>
+
+<h2 id="LocalDate的使用"><a href="#LocalDate的使用" class="headerlink" title="LocalDate的使用"></a>LocalDate的使用</h2><p>创建LocalDate对象有两种方式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建当前日期的LocalDate</span></span><br><span class="line">LocalDate localDate = LocalDate.now();</span><br><span class="line"><span class="comment">// 创建指定日期的LocalDate</span></span><br><span class="line">LocalDate localDate1 = LocalDate.of(<span class="number">2020</span>,<span class="number">4</span>,<span class="number">14</span>);</span><br></pre></td></tr></table></figure>
+
+<p>从LocalDate类型的对象中获取年，月，日，星期几</p>
+<p>获取年月日周几都是有两种方式，一个<code>getXxx()</code>，一种<code>get(ChronoField.XXX)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取年</span></span><br><span class="line"><span class="keyword">int</span> year = localDate.getYear();</span><br><span class="line"><span class="keyword">int</span> year1 = localDate.get(ChronoField.YEAR);</span><br><span class="line">System.out.println(year + <span class="string">&quot; -- &quot;</span> + year1); <span class="comment">// 2020 -- 2020</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取月</span></span><br><span class="line">Month month = localDate.getMonth();</span><br><span class="line"><span class="keyword">int</span> month1 = localDate.get(ChronoField.MONTH_OF_YEAR);</span><br><span class="line">System.out.println(<span class="string">&quot;month = &quot;</span> + month); <span class="comment">// month = APRIL</span></span><br><span class="line">System.out.println(<span class="string">&quot;month.getValue() = &quot;</span> + month.getValue()); <span class="comment">// month.getValue() = 4</span></span><br><span class="line">System.out.println(<span class="string">&quot;month1 = &quot;</span> + month1); <span class="comment">// month1 = 4</span></span><br><span class="line"><span class="comment">// Month类型也可以做加减法,month.plus(1)，会返回一个Month对象，值为MAY</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取日，DayOfMonth</span></span><br><span class="line"><span class="keyword">int</span> day = localDate.getDayOfMonth();</span><br><span class="line"><span class="keyword">int</span> day1 = localDate.get(ChronoField.DAY_OF_MONTH);</span><br><span class="line">System.out.println(<span class="string">&quot;day-day1 = &quot;</span> + day + <span class="string">&quot; - &quot;</span> + day1);<span class="comment">// day-day1 = 16 - 16</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取周几,DayOfWeek</span></span><br><span class="line">DayOfWeek dayOfWeek = localDate.getDayOfWeek(); </span><br><span class="line"><span class="keyword">int</span> dayOfWeek1 = localDate.get(ChronoField.DAY_OF_WEEK);</span><br><span class="line">System.out.println(<span class="string">&quot;dayOfWeek = &quot;</span> + dayOfWeek); <span class="comment">// THURSDAY</span></span><br><span class="line">System.out.println(<span class="string">&quot;dayOfWeek.getValue()=&quot;</span>+dayOfWeek.getValue());<span class="comment">//dayOfWeek.getValue()=4</span></span><br><span class="line">System.out.println(<span class="string">&quot;dayOfWeek1 = &quot;</span> + dayOfWeek1);<span class="comment">// dayOfWeek1 = 4</span></span><br><span class="line"><span class="comment">// DayOfWeek也可以做加减法，具体方法.就能看到</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="LocalTime的使用"><a href="#LocalTime的使用" class="headerlink" title="LocalTime的使用"></a>LocalTime的使用</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LocalTime localTime = LocalTime.now();</span><br><span class="line">LocalTime localTime1 = LocalTime.of(<span class="number">13</span>, <span class="number">51</span>, <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取小时</span></span><br><span class="line"><span class="keyword">int</span> hour = localTime.getHour();</span><br><span class="line"><span class="keyword">int</span> hour1 = localTime.get(ChronoField.HOUR_OF_DAY);</span><br><span class="line"><span class="comment">//获取分</span></span><br><span class="line"><span class="keyword">int</span> minute = localTime.getMinute();</span><br><span class="line"><span class="keyword">int</span> minute1 = localTime.get(ChronoField.MINUTE_OF_HOUR);</span><br><span class="line"><span class="comment">//获取秒</span></span><br><span class="line"><span class="keyword">int</span> second = localTime.getSecond();</span><br><span class="line"><span class="keyword">int</span> second1 = localTime.get(ChronoField.SECOND_OF_MINUTE);</span><br></pre></td></tr></table></figure>
+
+<h2 id="LocalDateTime的使用"><a href="#LocalDateTime的使用" class="headerlink" title="LocalDateTime的使用"></a>LocalDateTime的使用</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// LocalDateTime就是LocalDate+LocalTime</span></span><br><span class="line"><span class="comment">// 创建LocalDateTime的几种方式</span></span><br><span class="line">LocalDateTime localDateTime = LocalDateTime.now();</span><br><span class="line">LocalDateTime localDateTime1 = LocalDateTime.of(<span class="number">2020</span>, Month.APRIL, <span class="number">4</span>, <span class="number">14</span>, <span class="number">46</span>, <span class="number">56</span>);</span><br><span class="line">LocalDateTime localDateTime2 = LocalDateTime.of(localDate, localTime);</span><br><span class="line">LocalDateTime localDateTime3 = localDate.atTime(localTime);</span><br><span class="line">LocalDateTime localDateTime4 = localTime.atDate(localDate);</span><br><span class="line"><span class="comment">// 从LocalDateTime获取LocalDate和LocalTime</span></span><br><span class="line">LocalDate localDate4 = localDateTime.toLocalDate();</span><br><span class="line">LocalTime localTime2 = localDateTime.toLocalTime();</span><br></pre></td></tr></table></figure>
+
+<h2 id="Instant的使用"><a href="#Instant的使用" class="headerlink" title="Instant的使用"></a>Instant的使用</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建Instant对象</span></span><br><span class="line">Instant instant = Instant.now();</span><br><span class="line"><span class="comment">// 获取秒数</span></span><br><span class="line"><span class="keyword">long</span> epochSecond = instant.getEpochSecond();</span><br><span class="line"><span class="comment">// 获取毫秒 也可以用System.currentTimeMillis();</span></span><br><span class="line"><span class="keyword">long</span> currentMilli = instant.toEpochMilli();</span><br></pre></td></tr></table></figure>
+
+<h2 id="格式化LocalDate和解析字符串到LocalDate"><a href="#格式化LocalDate和解析字符串到LocalDate" class="headerlink" title="格式化LocalDate和解析字符串到LocalDate"></a>格式化LocalDate和解析字符串到LocalDate</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 格式化时间 DateTimeFormatter是线程安全的，SimpleDateFormat是线程不安全的</span></span><br><span class="line"><span class="comment">// 使用DateTimeFormatter提供的默认的模板</span></span><br><span class="line">String s1 = localDate.format(DateTimeFormatter.BASIC_ISO_DATE); <span class="comment">// yyyyMMdd</span></span><br><span class="line">String s2 = localDate.format(DateTimeFormatter.ISO_LOCAL_DATE); <span class="comment">// yyyy-MM-dd</span></span><br><span class="line"><span class="comment">//自定义格式化</span></span><br><span class="line">DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(<span class="string">&quot;dd/MM/yyyy&quot;</span>);</span><br><span class="line">String s3 = localDate.format(dateTimeFormatter);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 解析时间</span></span><br><span class="line">LocalDate localDate5 = LocalDate.parse(<span class="string">&quot;20200414&quot;</span>, DateTimeFormatter.BASIC_ISO_DATE);</span><br><span class="line">LocalDate localDate6 = LocalDate.parse(<span class="string">&quot;2020-04-14&quot;</span>, DateTimeFormatter.ISO_LOCAL_DATE);</span><br></pre></td></tr></table></figure>
+
+<h2 id="LocalDate的加减法"><a href="#LocalDate的加减法" class="headerlink" title="LocalDate的加减法"></a>LocalDate的加减法</h2><p>LocalDate的加减法,有加减天数，月，周，年</p>
+<p>对应的方法是<code>plusDays(long),plusMonths(long),plusYears(long),plusWeeks(long)，plus(1, ChronoUnit.YEARS)</code>,</p>
+<p><code>minusDays(long),minusMonths(long),minusYears(long),minusWeeks(long)，minus(1, ChronoUnit.MONTHS)</code>。</p>
+<p>具体的方法和方法签名，直接.也能看到。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 今天是2020-04-16</span><br><span class="line">LocalDate localDate2 = localDate.plusDays(10);</span><br><span class="line">System.out.println(&quot;localDate2.toString() = &quot; + localDate2.toString());</span><br><span class="line">LocalDate localDate3 = localDate.minusMonths(1);</span><br><span class="line">System.out.println(&quot;localDate3.toString() = &quot; + localDate3.toString());</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="通过with修改某些值"><a href="#通过with修改某些值" class="headerlink" title="通过with修改某些值"></a>通过with修改某些值</h2><p>只修改年，不修改月日</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LocalDate localDate = LocalDate.now();</span><br><span class="line"><span class="comment">//修改年为2021  </span></span><br><span class="line">localDate = localDate.withYear(<span class="number">2021</span>);  </span><br><span class="line"><span class="comment">//修改为2022  </span></span><br><span class="line">localDate = localDate.with(ChronoField.YEAR, <span class="number">2022</span>);</span><br></pre></td></tr></table></figure>
+
+<p>有些时候想知道这个月的最后一天是几号、下个周末是几号，通过提供的时间和日期API可以很快得到答案。</p>
+<p>使用TemporalAdjusters中的一些提供的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LocalDate localDate7 = LocalDate.now();</span><br><span class="line">localDate7 = localDate7.with(TemporalAdjusters.firstDayOfYear());</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="跟着LocalDate中with方法往下读的一些源码"><a href="#跟着LocalDate中with方法往下读的一些源码" class="headerlink" title="跟着LocalDate中with方法往下读的一些源码"></a>跟着LocalDate中with方法往下读的一些源码</h2><p>在LocalDate的源码中，with有这么一些方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// with方法，需要一个 TemporalAdjuster类型的对象，   </span></span><br><span class="line"><span class="function"><span class="keyword">public</span> LocalDate <span class="title">with</span><span class="params">(TemporalAdjuster adjuster)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/* </span></span><br><span class="line"><span class="comment">    	LocalDate实现了TemporalAdjuster接口，这里也能直接传入LocalDate的对象。看这个方法中的逻辑可以明白，如果adjuster是LocalDate的实例，那么强转为LocalDate类型。</span></span><br><span class="line"><span class="comment">    	如果不传入LocalDate类型的，只需要传入实现了TemporalAdjuster接口的对象，会调用TemporalAdjuster中的adjustInto方法。可以看到TemporalAdjuster的adjuster方法返回的是Temporal类型的对象，强转为LocalDate类型。	</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">        <span class="keyword">return</span> adjuster <span class="keyword">instanceof</span> LocalDate ? (LocalDate)adjuster : (LocalDate)adjuster.adjustInto(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> LocalDate <span class="title">with</span><span class="params">(TemporalField field, <span class="keyword">long</span> newValue)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (field <span class="keyword">instanceof</span> ChronoField) &#123;</span><br><span class="line">            ChronoField f = (ChronoField)field;</span><br><span class="line">            f.checkValidValue(newValue);</span><br><span class="line">            <span class="keyword">switch</span>(f) &#123;</span><br><span class="line">            <span class="keyword">case</span> DAY_OF_MONTH:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">this</span>.withDayOfMonth((<span class="keyword">int</span>)newValue);</span><br><span class="line">            <span class="keyword">case</span> DAY_OF_YEAR:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">this</span>.withDayOfYear((<span class="keyword">int</span>)newValue);</span><br><span class="line">            <span class="comment">// 这里还有很多case语句，省略...</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (LocalDate)field.adjustInto(<span class="keyword">this</span>, newValue);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 下面这些都是替换具体的int的值</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> LocalDate <span class="title">withYear</span><span class="params">(<span class="keyword">int</span> year)</span></span>&#123;<span class="comment">//... </span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> LocalDate <span class="title">withMonth</span><span class="params">(<span class="keyword">int</span> month)</span></span>&#123;<span class="comment">//... </span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> LocalDate <span class="title">withDayOfMonth</span><span class="params">(<span class="keyword">int</span> dayOfMonth)</span></span>&#123;<span class="comment">//... </span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> LocalDate <span class="title">withDayOfYear</span><span class="params">(<span class="keyword">int</span> dayOfYear)</span></span>&#123;<span class="comment">//... </span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>在TemporalAdjusters这个类中，有许多的方法，都是返回一个实现好的TemporalAdjuster的引用类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TemporalAdjuster <span class="title">firstDayOfYear</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (temporal) -&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> temporal.with(ChronoField.DAY_OF_YEAR, <span class="number">1L</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TemporalAdjuster <span class="title">lastDayOfYear</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (temporal) -&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> temporal.with(ChronoField.DAY_OF_YEAR, temporal.range(ChronoField.DAY_OF_YEAR).getMaximum());</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://zq99299.github.io/java-tutorial/datetime/iso/adjusters.html#%E9%A2%84%E5%AE%9A%E4%B9%89%E7%9A%84%E8%B0%83%E8%8A%82%E5%99%A8">adjusters 时间调节器</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MjM5NTY1MjY0MQ==&mid=2650749994&idx=5&sn=72ae27eb6af02c09692b5b4c1cd75665&chksm=befea9648989207250cac5e3af77e11cd0a85e483dc95b849f80f8cd7928adb71b2ebe976ce3&mpshare=1&scene=23&srcid=&sharer_sharetime=1586427392387&sharer_shareid=8de8aa249c22be78c22fd6948747e00e#rd">使用LocalDate</a></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/java/"># java</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/04/20/nextcloud-install/">nextcloud安装和代理到二级域名</a>
+            
+            
+            <a class="next" rel="next" href="/2020/04/14/miniprogram-countdown/">小程序中按钮验证码倒计时</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© turingzz | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>

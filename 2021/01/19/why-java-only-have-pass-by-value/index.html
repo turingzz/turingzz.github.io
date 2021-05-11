@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="turingzz">
+
+
+
+
+
+<title>为什么Java中只有值传递 | Turingzz</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Turingzz</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">关于我</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Turingzz</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">关于我</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">为什么Java中只有值传递</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">turingzz</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">January 19, 2021&nbsp;&nbsp;12:59:32</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/study/">study</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>在Java中只有值传递。</p>
+<blockquote>
+<p>值传递（pass by value）是指在调用函数时将实际参数复制一份传递到函数中，这样在函数中如果对参数进行修改，将不会影响到实际参数。</p>
+<p>引用传递（pass by reference）是指在调用函数时将实际参数的地址<strong>直接</strong>传递到函数中，那么在函数中对参数所进行的修改，将影响到实际参数。</p>
+</blockquote>
+<p>值传递中有几个例子，先一一的解释一下。</p>
+<ol>
+<li>数值类型</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   ParamTest pt = <span class="keyword">new</span> ParamTest();</span><br><span class="line"></span><br><span class="line">   <span class="keyword">int</span> i = <span class="number">10</span>;</span><br><span class="line">   pt.pass(i );</span><br><span class="line">   System.out.println(<span class="string">&quot;print in main , i is &quot;</span> + i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pass</span><span class="params">(<span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">   j = <span class="number">20</span>;</span><br><span class="line">   System.out.println(<span class="string">&quot;print in pass , j is &quot;</span> + j);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span> <span class="keyword">in</span> pass , j is 20</span><br><span class="line"><span class="built_in">print</span> <span class="keyword">in</span> main , i is 10</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，j的改变没有影响到i这个变量。</p>
+<ol start="2">
+<li>对象</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   ParamTest pt = <span class="keyword">new</span> ParamTest();</span><br><span class="line"></span><br><span class="line">   User hollis = <span class="keyword">new</span> User();</span><br><span class="line">   hollis.setName(<span class="string">&quot;Hollis&quot;</span>);</span><br><span class="line">   hollis.setGender(<span class="string">&quot;Male&quot;</span>);</span><br><span class="line">   pt.pass(hollis);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in main , user is &quot;</span> + hollis);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pass</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">   user.setName(<span class="string">&quot;hollischuang&quot;</span>);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in pass , user is &quot;</span> + user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个输出</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span> <span class="keyword">in</span> pass , user is User&#123;name=<span class="string">&#x27;hollischuang&#x27;</span>, gender=<span class="string">&#x27;Male&#x27;</span>&#125;</span><br><span class="line"><span class="built_in">print</span> <span class="keyword">in</span> main , user is User&#123;name=<span class="string">&#x27;hollischuang&#x27;</span>, gender=<span class="string">&#x27;Male&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>字符串对象</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   ParamTest pt = <span class="keyword">new</span> ParamTest();</span><br><span class="line"></span><br><span class="line">   String name = <span class="string">&quot;Hollis&quot;</span>;</span><br><span class="line">   pt.pass(name);</span><br><span class="line">   System.out.println(<span class="string">&quot;print in main , name is &quot;</span> + name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pass</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">   name = <span class="string">&quot;hollischuang&quot;</span>;</span><br><span class="line">   System.out.println(<span class="string">&quot;print in pass , name is &quot;</span> + name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个输出</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span> <span class="keyword">in</span> pass , name is hollischuang</span><br><span class="line"><span class="built_in">print</span> <span class="keyword">in</span> main , name is Hollis</span><br></pre></td></tr></table></figure>
+
+<p>有人会说，第2个例子改变了不就是引用传递吗，并不是。综合2和3的例子来看</p>
+<p><strong>在例子2中</strong>：</p>
+<p>实际上，这个并没有<strong>直接</strong>传递地址，而是两个不同的对象，指向同一个引用。在main中的<code>hollis</code>是一个对象，他有自己的地址，值是一个引用；在pass方法中的user又是另一个对象，他也有自己的地址（和<code>hollis</code>的地址不一样），他的值也是一个引用。从main中传递到pass中，是<code>hollis</code>的值（一个引用）赋给user的值（一个引用）。并没有直接将<code>hollis</code>的地址赋值给user。所以还是值传递，只不过这个值是一个引用。当修改user时，实际修改了引用中的内容，那么<code>hollis</code>中引用的对象中的内容自然也会变。</p>
+<p><strong>在例子3中</strong></p>
+<p>这里main中没有改变是因为赋值了一个新的对象给user，user指向了一个新的引用（String的性质），而不是修改了原引用中的值，所以user的改变没有影响到main中的对象。如果第3个例子中把String换成<code>StringBuilder</code>，并使用append方法，那么引用就不会改变，得到的结果就类似于例子2。</p>
+<p>演示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    StringBuilder stringBuilder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    stringBuilder.append(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">    change(stringBuilder);</span><br><span class="line">    System.out.println(stringBuilder.toString());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">change</span><span class="params">(StringBuilder stringBuilder)</span> </span>&#123;</span><br><span class="line">    stringBuilder.append(<span class="string">&quot;,world&quot;</span>);</span><br><span class="line">    System.out.println(stringBuilder.toString());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hello,world</span><br><span class="line">hello,world</span><br></pre></td></tr></table></figure>
+
+<p>感谢<a target="_blank" rel="noopener" href="https://blog.csdn.net/bjweimengshu/article/details/79799485">此文章</a>的帮助</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/java/"># java</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2021/02/02/1.%5B19%5Dremove-nth-node-from-end-of-list/">1.[19]删除链表的倒数第 N 个结点</a>
+            
+            
+            <a class="next" rel="next" href="/2021/01/17/git-remark/">git常用命令</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© turingzz | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="turingzz">
+
+
+
+
+
+<title>初探autojs--基本使用和官方文档 | Turingzz</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Turingzz</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">关于我</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Turingzz</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">关于我</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">初探autojs--基本使用和官方文档</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">turingzz</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">February 15, 2020&nbsp;&nbsp;23:58:41</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/study/">study</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>​    在<code>B站</code>看到一个up主用autojs操作手机刷网课，觉得很有意思。在我的理解中，操作手机是需要安卓编程，甚至要ROOT手机，一系列复杂的操作。看到使用autojs能通过简单的API，并且不需要ROOT就能操作手机，顿时对autojs非常有兴趣。</p>
+<span id="more"></span>
+
+<p>​    原本autojs是在github上开源的，作者说因为灰色产业，停止了开源的autojs的更新，转而开始了收费的autojs pro的更新。  </p>
+<p>官方文档：</p>
+<p>前人的教程：</p>
+<ol>
+<li><p>简单说，autojs是一个手机的APP，不需要root权限就能运行自己写的JS脚本。在手机上安装并打开autojs，会提示打开辅助功能（各个手机叫法不同，比如三星叫服务，魅族叫无障碍服务）。</p>
+</li>
+<li><p>然后在电脑端的<code>vs code</code>中安装一个autojs-…的插件（有另一个autojs pro的插件可能更适合pro的版本，按自己手机安装的是哪种APK下载对应的插件）。</p>
+</li>
+<li><p>在电脑cmd中运行<code>ipconfig</code>命令，找到对应的局域网地址。（测试的手机和电脑要处于同一WIFI，或连接热点）</p>
+</li>
+<li><p>在<code>vs code</code>中按<code>Ctrl + Shift + P</code>打开运行命令窗口，输入<code>auto.js:Run Server</code>开启服务。</p>
+</li>
+<li><p>在手机上连接电脑，ip地址填写电脑的局域网ip</p>
+</li>
+<li><p>在电脑建一个文件夹，用<code>vs code</code>打开，编辑<code>test.js</code>。</p>
+</li>
+<li><pre><code class="js">toast(&quot;hello,autojs&quot;);
+</code></pre>
+</li>
+<li><p>保存，按f5即可在手机看到弹出框（或者<code>auto.js:Run</code>运行这个脚本）。</p>
+</li>
+</ol>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/autojs/"># autojs</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/02/25/aliyun-sms/">使用阿里云短信服务</a>
+            
+            
+            <a class="next" rel="next" href="/2020/02/15/ym-163-mail/">网易域名邮箱的IMAP怎么填</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© turingzz | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>

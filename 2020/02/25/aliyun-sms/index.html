@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="turingzz">
+
+
+
+
+
+<title>使用阿里云短信服务 | Turingzz</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Turingzz</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">关于我</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Turingzz</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">关于我</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">使用阿里云短信服务</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">turingzz</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">February 25, 2020&nbsp;&nbsp;20:41:47</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/study/">study</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>SpringBoot中使用阿里云的短信服务。</p>
+<span id="more"></span>
+
+<p>​    很早之前我就想使用短信服务。浏览过阿里云和腾讯云的短信服务，看到5000条一年，一万条一年的套餐，只是平时的测试和自己使用，完全用不了这么多。我天真的认为，一定要买套餐才能使用。</p>
+<p>​    后来才了解到，只要有阿里云的账号，就能直接使用短信服务，费用也只要5分一条。腾讯云我之前测试的时候，直接复制官网的demo就能跑。</p>
+<p>​    但是阿里云的短信服务，使用官方提供的demo，不能直接使用。在此做个记录。</p>
+<p>​    阿里云的提供的SDK的<code>pom.xml</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.aliyun<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>aliyun-java-sdk-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.aliyun<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>aliyun-java-sdk-dysmsapi<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>官方的DEMO版本有些问题，部分方法对不上，需要小小的修改。官方的DEMO和修改如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.aliyuncs.CommonRequest;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.CommonResponse;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.DefaultAcsClient;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.IAcsClient;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.exceptions.ClientException;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.exceptions.ServerException;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.http.MethodType;</span><br><span class="line"><span class="keyword">import</span> com.aliyuncs.profile.DefaultProfile;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SendSms</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        DefaultProfile profile = DefaultProfile.getProfile(<span class="string">&quot;cn-hangzhou&quot;</span>, <span class="string">&quot;&lt;accessKeyId&gt;&quot;</span>, <span class="string">&quot;&lt;accessSecret&gt;&quot;</span>);</span><br><span class="line">        IAcsClient client = <span class="keyword">new</span> DefaultAcsClient(profile);</span><br><span class="line"></span><br><span class="line">        CommonRequest request = <span class="keyword">new</span> CommonRequest();</span><br><span class="line">        request.setMethod(MethodType.POST);<span class="comment">// 官方为request.setSysMethod</span></span><br><span class="line">        request.setDomain(<span class="string">&quot;dysmsapi.aliyuncs.com&quot;</span>);<span class="comment">// 官方为request.setSysDomain</span></span><br><span class="line">        request.setVersion(<span class="string">&quot;2017-05-25&quot;</span>); <span class="comment">// 官方为request.setSysVersion</span></span><br><span class="line">        request.setAction(<span class="string">&quot;SendSms&quot;</span>);<span class="comment">// 官方为request.setSysAction</span></span><br><span class="line">        request.putQueryParameter(<span class="string">&quot;RegionId&quot;</span>, <span class="string">&quot;cn-hangzhou&quot;</span>);</span><br><span class="line">        request.putQueryParameter(<span class="string">&quot;PhoneNumbers&quot;</span>, <span class="string">&quot;1.....02&quot;</span>);</span><br><span class="line">        request.putQueryParameter(<span class="string">&quot;SignName&quot;</span>, <span class="string">&quot;ho...&quot;</span>);</span><br><span class="line">        request.putQueryParameter(<span class="string">&quot;TemplateCode&quot;</span>, <span class="string">&quot;SMS_18266...&quot;</span>);</span><br><span class="line">        request.putQueryParameter(<span class="string">&quot;TemplateParam&quot;</span>, <span class="string">&quot;&#123;\&quot;code\&quot;:\&quot;1234\&quot;&#125;&quot;</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            CommonResponse response = client.getCommonResponse(request);</span><br><span class="line">            System.out.println(response.getData());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ServerException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ClientException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/springboot/"># springboot</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/02/27/js-copy/">JS浅拷贝和深拷贝</a>
+            
+            
+            <a class="next" rel="next" href="/2020/02/15/first-autojs/">初探autojs--基本使用和官方文档</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© turingzz | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
