@@ -107,6 +107,68 @@
             <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
 
     
     <article class="post-wrap">
@@ -136,7 +198,7 @@
         </header>
 
         <div class="post-content">
-            <p>docker常用命令</p>
+            <h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><p>docker常用命令</p>
 <ul>
 <li>镜像</li>
 </ul>
@@ -176,6 +238,20 @@
 <blockquote>
 <p>畅想：拉去一个Linux发行版的镜像，在容器中配置好自己常用的开发环境、部署环境，将容器导出。就无需每次都要从头开始配置环境。在学习集群之类的需要大量重复的环境的适合，也可以使用该镜像来保证一致。</p>
 </blockquote>
+<h2 id="redis"><a href="#redis" class="headerlink" title="redis"></a><code>redis</code></h2><ul>
+<li>拉取最新的<code>redis</code>镜像</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull redis</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>redis</code>配置文件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 6379:6379 --name redis -v /data/redis/redis.conf:/etc/redis/redis.conf -d redis redis-server /etc/redis/redis.conf</span><br></pre></td></tr></table></figure>
+
+<p><code>-p</code>为端口映射。将容器中的端口映射到宿主机中。</p>
+<p><code>--name</code>为该容器命名。</p>
+<p><code>-v</code>为将宿主机中的文件和容器中的文件映射起来。</p>
+<p><code>redis-server xxx.conf</code>为指定启动时使用的配置文件。</p>
 
         </div>
 
